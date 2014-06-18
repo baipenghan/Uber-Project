@@ -1,0 +1,17 @@
+[
+    {
+        "name": "Mailgun",
+        "info": {
+            "api_key": "",
+            "domain": ""
+        }
+    },
+    {
+        "name": "Mandrill",
+        "info": {
+            "api_key": ""
+        }
+    },
+    {"default_index": 1, "host": "localhost", "port": 8080}
+
+]

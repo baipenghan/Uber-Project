@@ -1,0 +1,30 @@
+Uber Project by Baipeng Han, Jun 18 2014
+
+1. Installation
+
+Before the installation, please make sure you have installed Python 2.7 and sqlite3 on your machine.
+And then just pull the whole repository down on your machine. In the folder, there is a file called configure.json.
+You need to register your own Mailgun and Mandrill user, and then put your own api_key in the corresponding location. Also, Mailgun asks for the domain name.
+Last, put your host and port in the corresponding location.
+That's all for the installation.
+
+Run the web service by: $ python uber.py
+
+2. I chose Python as my programming language and Bottle as the framework, because I'm most familiar with Python.
+I've developed web app using Django and Bottle before. Bottle is a pretty light weight framework, and easy to use.
+
+3. For switching Email provider, in the configure.json, there's a field 'default_index'. It indicates which Email provider we're going to use when we deploy
+the application. In this case, 0 refers to 'Mailgun' and 1 refers to 'Mandrill', because it's a list so they're ordered.
+
+4. Time is limited so I only finished two bonus points (1) and (2).
+    (1) Dynamically switching Email providers. I simply check if the status code of the response from Mailgun or Mandrill is not 200, then I switch to the next Email provider.
+        If we add more Email providers in the future, the code also works because it's kinda a circular list (everytime add 1 and mod by the size of the provider list).
+    (2) I created a sqlite3 database in the folder and only the valid requests going through my web service will be stored in the database, i.e. no empty input and inputs are in valid form.
+        When adding into the sqlite3 database, I add a timestamp into a row, in addition to the original information of the request.
+
+5. More ideas about the dynamically switching Email providers:
+      When we have several Email providers, we can prioritize them by giving each of the email provider a score. The score is also dynamically changing, due to some factors.
+      e.g. When the current email provider successfully sent an email, we can make the score of this email provider higher. And different factors may have different weight on the score.
+      So when the current Email provider failed to send a message, we can automatically switch to the highest provider in the list except the current one, and also update the score of this provider.
+
+6. For automated tests, after we deploy the web service, we can run the tests by:  $ python test.py
